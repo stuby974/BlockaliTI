@@ -36,7 +36,19 @@ Blockly.JavaScript.lists_getSublist=function(a){var b=Blockly.JavaScript.valueTo
 "}"])+"("+b+", '"+c+"', "+e+", '"+d+"', "+a+")",Blockly.JavaScript.ORDER_FUNCTION_CALL]};Blockly.JavaScript.lists_split=function(a){var b=Blockly.JavaScript.valueToCode(a,"INPUT",Blockly.JavaScript.ORDER_MEMBER),c=Blockly.JavaScript.valueToCode(a,"DELIM",Blockly.JavaScript.ORDER_NONE)||"''";a=a.getFieldValue("MODE");if("SPLIT"==a)b||(b="''"),a="split";else if("JOIN"==a)b||(b="[]"),a="join";else throw"Unknown mode: "+a;return[b+"."+a+"("+c+")",Blockly.JavaScript.ORDER_FUNCTION_CALL]};
 // Copyright 2012 Google Inc.  Apache License 2.0
 Blockly.JavaScript.logic={};
-Blockly.JavaScript.controls_if=function(a){for(var b=0,c=Blockly.JavaScript.valueToCode(a,"IF"+b,Blockly.JavaScript.ORDER_NONE)||"false",d=Blockly.JavaScript.statementToCode(a,"DO"+b),e="if ("+c+") {\n"+d+"}",b=1;b<=a.elseifCount_;b++)c=Blockly.JavaScript.valueToCode(a,"IF"+b,Blockly.JavaScript.ORDER_NONE)||"false",d=Blockly.JavaScript.statementToCode(a,"DO"+b),e+=" else if ("+c+") {\n"+d+"}";a.elseCount_&&(d=Blockly.JavaScript.statementToCode(a,"ELSE"),e+=" else {\n"+d+"}");return e+"\n"};
+Blockly.JavaScript.controls_if=function(a){
+	for(var b=0,c=Blockly.JavaScript.valueToCode(a,"IF"+b,Blockly.JavaScript.ORDER_NONE)||"false",
+	d=Blockly.JavaScript.statementToCode(a,"DO"+b),
+	e="if ("+c+") {\n"+d+"}",b=1;b<=a.elseifCount_;b++)
+	c=Blockly.JavaScript.valueToCode(a,"IF"+b,Blockly.JavaScript.ORDER_NONE)||"false",
+	d=Blockly.JavaScript.statementToCode(a,"DO"+b),
+	e+=" else if ("+c+") {\n"+d+"}";
+	a.elseCount_&&(d=Blockly.JavaScript.statementToCode(a,"ELSE"),
+	e+=" else {\n"+d+"}");
+	return e+"\n"};
+
+
+
 Blockly.JavaScript.logic_compare=function(a){var b={EQ:"==",NEQ:"!=",LT:"<",LTE:"<=",GT:">",GTE:">="}[a.getFieldValue("OP")],c="=="==b||"!="==b?Blockly.JavaScript.ORDER_EQUALITY:Blockly.JavaScript.ORDER_RELATIONAL,d=Blockly.JavaScript.valueToCode(a,"A",c)||"0";a=Blockly.JavaScript.valueToCode(a,"B",c)||"0";return[d+" "+b+" "+a,c]};
 Blockly.JavaScript.logic_operation=function(a){var b="AND"==a.getFieldValue("OP")?"&&":"||",c="&&"==b?Blockly.JavaScript.ORDER_LOGICAL_AND:Blockly.JavaScript.ORDER_LOGICAL_OR,d=Blockly.JavaScript.valueToCode(a,"A",c);a=Blockly.JavaScript.valueToCode(a,"B",c);if(d||a){var e="&&"==b?"true":"false";d||(d=e);a||(a=e)}else a=d="false";return[d+" "+b+" "+a,c]};
 Blockly.JavaScript.logic_negate=function(a){var b=Blockly.JavaScript.ORDER_LOGICAL_NOT;return["!"+(Blockly.JavaScript.valueToCode(a,"BOOL",b)||"true"),b]};Blockly.JavaScript.logic_boolean=function(a){return["TRUE"==a.getFieldValue("BOOL")?"true":"false",Blockly.JavaScript.ORDER_ATOMIC]};Blockly.JavaScript.logic_null=function(a){return["null",Blockly.JavaScript.ORDER_ATOMIC]};
@@ -80,8 +92,25 @@ Blockly.JavaScript.procedures_callnoreturn=function(a){for(var b=Blockly.JavaScr
 Blockly.JavaScript.procedures_ifreturn=function(a){var b="if ("+(Blockly.JavaScript.valueToCode(a,"CONDITION",Blockly.JavaScript.ORDER_NONE)||"false")+") {\n";a.hasReturnValue_?(a=Blockly.JavaScript.valueToCode(a,"VALUE",Blockly.JavaScript.ORDER_NONE)||"null",b+="  return "+a+";\n"):b+="  return;\n";return b+"}\n"};
 // Copyright 2012 Google Inc.  Apache License 2.0
 Blockly.JavaScript.texts={};Blockly.JavaScript.text=function(a){return[Blockly.JavaScript.quote_(a.getFieldValue("TEXT")),Blockly.JavaScript.ORDER_ATOMIC]};
-Blockly.JavaScript.text_join=function(a){var b;if(0==a.itemCount_)return["''",Blockly.JavaScript.ORDER_ATOMIC];if(1==a.itemCount_)return b=Blockly.JavaScript.valueToCode(a,"ADD0",Blockly.JavaScript.ORDER_NONE)||"''",["String("+b+")",Blockly.JavaScript.ORDER_FUNCTION_CALL];if(2==a.itemCount_)return b=Blockly.JavaScript.valueToCode(a,"ADD0",Blockly.JavaScript.ORDER_NONE)||"''",a=Blockly.JavaScript.valueToCode(a,"ADD1",Blockly.JavaScript.ORDER_NONE)||"''",["String("+b+") + String("+a+")",Blockly.JavaScript.ORDER_ADDITION];
-b=Array(a.itemCount_);for(var c=0;c<a.itemCount_;c++)b[c]=Blockly.JavaScript.valueToCode(a,"ADD"+c,Blockly.JavaScript.ORDER_COMMA)||"''";b="["+b.join(",")+"].join('')";return[b,Blockly.JavaScript.ORDER_FUNCTION_CALL]};Blockly.JavaScript.text_append=function(a){var b=Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE);a=Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_NONE)||"''";return b+" = String("+b+") + String("+a+");\n"};
+
+Blockly.JavaScript.text_join=function(a){
+	var b;
+	if(0==a.itemCount_)return["''",Blockly.JavaScript.ORDER_ATOMIC];
+	if(1==a.itemCount_)return b=Blockly.JavaScript.valueToCode(a,"ADD0",Blockly.JavaScript.ORDER_NONE)||"''",
+	["String("+b+")",Blockly.JavaScript.ORDER_FUNCTION_CALL];
+	if(2==a.itemCount_)return b=Blockly.JavaScript.valueToCode(a,"ADD0",Blockly.JavaScript.ORDER_NONE)||"''",
+	a=Blockly.JavaScript.valueToCode(a,"ADD1",Blockly.JavaScript.ORDER_NONE)||"''",
+	["String("+b+") + String("+a+")",Blockly.JavaScript.ORDER_ADDITION];
+	b=Array(a.itemCount_);
+	for(var c=0;c<a.itemCount_;c++)b[c]=Blockly.JavaScript.valueToCode(a,"ADD"+c,Blockly.JavaScript.ORDER_COMMA)||"''";
+	b="["+b.join(",")+"].join('')";
+return[b,Blockly.JavaScript.ORDER_FUNCTION_CALL]};
+
+Blockly.JavaScript.text_append=function(a){
+	var b=Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE);
+a=Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_NONE)||"''";
+return b+" = String("+b+") + String("+a+");\n"};
+
 Blockly.JavaScript.text_length=function(a){return[(Blockly.JavaScript.valueToCode(a,"VALUE",Blockly.JavaScript.ORDER_FUNCTION_CALL)||"''")+".length",Blockly.JavaScript.ORDER_MEMBER]};Blockly.JavaScript.text_isEmpty=function(a){return["!"+(Blockly.JavaScript.valueToCode(a,"VALUE",Blockly.JavaScript.ORDER_MEMBER)||"''"),Blockly.JavaScript.ORDER_LOGICAL_NOT]};
 Blockly.JavaScript.text_indexOf=function(a){var b="FIRST"==a.getFieldValue("END")?"indexOf":"lastIndexOf",c=Blockly.JavaScript.valueToCode(a,"FIND",Blockly.JavaScript.ORDER_NONE)||"''";return[(Blockly.JavaScript.valueToCode(a,"VALUE",Blockly.JavaScript.ORDER_MEMBER)||"''")+"."+b+"("+c+") + 1",Blockly.JavaScript.ORDER_MEMBER]};
 Blockly.JavaScript.text_charAt=function(a){var b=a.getFieldValue("WHERE")||"FROM_START",c=Blockly.JavaScript.valueToCode(a,"AT",Blockly.JavaScript.ORDER_UNARY_NEGATION)||"1";a=Blockly.JavaScript.valueToCode(a,"VALUE",Blockly.JavaScript.ORDER_MEMBER)||"''";switch(b){case "FIRST":return[a+".charAt(0)",Blockly.JavaScript.ORDER_FUNCTION_CALL];case "LAST":return[a+".slice(-1)",Blockly.JavaScript.ORDER_FUNCTION_CALL];case "FROM_START":return c=Blockly.isNumber(c)?parseFloat(c)-1:c+" - 1",[a+".charAt("+
@@ -90,7 +119,8 @@ Blockly.JavaScript.text_getSubstring=function(a){var b=Blockly.JavaScript.valueT
 "  function getAt(where, at) {","    if (where == 'FROM_START') {","      at--;","    } else if (where == 'FROM_END') {","      at = text.length - at;","    } else if (where == 'FIRST') {","      at = 0;","    } else if (where == 'LAST') {","      at = text.length - 1;","    } else {","      throw 'Unhandled option (text_getSubstring).';","    }","    return at;","  }","  at1 = getAt(where1, at1);","  at2 = getAt(where2, at2) + 1;","  return text.slice(at1, at2);","}"])+"("+b+", '"+c+"', "+e+", '"+
 d+"', "+a+")",Blockly.JavaScript.ORDER_FUNCTION_CALL]};
 Blockly.JavaScript.text_changeCase=function(a){var b={UPPERCASE:".toUpperCase()",LOWERCASE:".toLowerCase()",TITLECASE:null}[a.getFieldValue("CASE")];b?(a=Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_MEMBER)||"''",a+=b):(b=Blockly.JavaScript.provideFunction_("text_toTitleCase",["function "+Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_+"(str) {","  return str.replace(/\\S+/g,","      function(txt) {return txt[0].toUpperCase() + txt.substring(1).toLowerCase();});","}"]),a=Blockly.JavaScript.valueToCode(a,
-"TEXT",Blockly.JavaScript.ORDER_NONE)||"''",a=b+"("+a+")");return[a,Blockly.JavaScript.ORDER_FUNCTION_CALL]};Blockly.JavaScript.text_trim=function(a){var b={LEFT:".replace(/^[\\s\\xa0]+/, '')",RIGHT:".replace(/[\\s\\xa0]+$/, '')",BOTH:".trim()"}[a.getFieldValue("MODE")];return[(Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_MEMBER)||"''")+b,Blockly.JavaScript.ORDER_FUNCTION_CALL]};
+"TEXT",Blockly.JavaScript.ORDER_NONE)||"''",a=b+"("+a+")");return[a,Blockly.JavaScript.ORDER_FUNCTION_CALL]};
+Blockly.JavaScript.text_trim=function(a){var b={LEFT:".replace(/^[\\s\\xa0]+/, '')",RIGHT:".replace(/[\\s\\xa0]+$/, '')",BOTH:".trim()"}[a.getFieldValue("MODE")];return[(Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_MEMBER)||"''")+b,Blockly.JavaScript.ORDER_FUNCTION_CALL]};
 
 Blockly.JavaScript.text_prompt=function(a){var b="window.prompt("+Blockly.JavaScript.quote_(a.getFieldValue("TEXT"))+")";"NUMBER"==a.getFieldValue("TYPE")&&(b="parseFloat("+b+")");return[b,Blockly.JavaScript.ORDER_FUNCTION_CALL]};
 
@@ -116,6 +146,7 @@ Blockly.JavaScript.affiche_texte=function(a){
 };
 
 
+
 Blockly.JavaScript.variables_saisir_multiple=function(a){
 	var var_name=Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE);
 	var code = '' + var_name + ' = parseFloat(window.prompt("' + var_name + '=?"));\n';
@@ -123,6 +154,26 @@ Blockly.JavaScript.variables_saisir_multiple=function(a){
 	return code;
 };
 
+Blockly.JavaScript.variables_join=function(a){
+	var code='';
+	var var_name;
+
+	var_name=Blockly.JavaScript.valueToCode(a,"ADD0",Blockly.JavaScript.ORDER_NONE)||"";
+	code = code + var_name + ' = parseFloat(window.prompt("' + var_name + '=?"));\n';
+	code = code + Blockly.JavaScript.affiche_texte(Blockly.JavaScript.quote_(var_name+"=?")) + 'document.getElementById("interfaceHM").value += "" + ' + var_name + ";\n";
+	for(var c=1;c<a.itemCount_;c++){var_name=Blockly.JavaScript.valueToCode(a,"ADD"+c,Blockly.JavaScript.ORDER_NONE)||"";
+	code = code + var_name + ' = parseFloat(window.prompt("' + var_name + '=?"));\n';
+	code = code + Blockly.JavaScript.affiche_texte(Blockly.JavaScript.quote_(var_name+"=?")) + 'document.getElementById("interfaceHM").value += "" + ' + var_name + ";\n";
+	}return code;
+	};
+
+
+Blockly.Blocks.variables_saisir_multiple_var=function(a){
+	var var_name=Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE);
+	var code = '' + var_name + ' = parseFloat(window.prompt("' + var_name + '=?"));\n';
+	var code = code + Blockly.JavaScript.affiche_texte(Blockly.JavaScript.quote_(var_name+"=?")) + 'document.getElementById("interfaceHM").value += "" + ' + var_name + ";\n";
+	return code;
+};
 
 Blockly.JavaScript['affiche_fenetre'] = function(block) {
   var value_var = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC);

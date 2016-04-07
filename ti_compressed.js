@@ -112,4 +112,10 @@ Blockly.Ti.variables={};
 Blockly.Ti.variables_get=function(a){return[Blockly.Ti.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE),Blockly.Ti.ORDER_ATOMIC]};
 Blockly.Ti.variables_set=function(a){var b=Blockly.Ti.valueToCode(a,"VALUE",Blockly.Ti.ORDER_NONE)||"0";return b+"->"+Blockly.Ti.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE)+"\n"};
 Blockly.Ti.variables_saisir=function(a){return "Prompt "+Blockly.Ti.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE)+"\n"};
-
+Blockly.Ti.variables_join=function(a){
+	var b;
+	if(0==a.itemCount_)return["",Blockly.Ti.ORDER_ATOMIC];
+	b="Prompt "+Blockly.Ti.valueToCode(a,"ADD0",Blockly.Ti.ORDER_NONE)||"";
+	for(var c=1;c<a.itemCount_;c++)b=b+","+Blockly.Ti.valueToCode(a,"ADD"+c,Blockly.Ti.ORDER_NONE)||"";
+	return[b+"\n",Blockly.Ti.ORDER_FUNCTION_CALL]
+	};

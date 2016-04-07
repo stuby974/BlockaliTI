@@ -364,8 +364,15 @@ Blockly.Msg.VARIABLES_SAISIR = "Saisir %1";
 Blockly.Msg.VARIABLES_SAISIR_CREATE_GET = "Créer 'obtenir %1'";
 Blockly.Msg.VARIABLES_SAISIR_HELPURL = "https://github.com/google/blockly/wiki/Variables#set";  // untranslated
 Blockly.Msg.VARIABLES_SAISIR_TOOLTIP = "Fixe cette variable pour qu’elle soit égale à la valeur de l’entrée.";
-Blockly.Msg.SAISIR_VAR_MSG_VAR== Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
-Blockly.Msg.SAISIR_VAR_MSG_VARMULT=Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
+Blockly.Msg.SAISIR_VAR_MSG_VAR== '';
+Blockly.Msg.SAISIR_VAR_MSG_VARMULT="Saisir";
+Blockly.Msg.SAISIR_VAR_MSG_VARMULT_TOOLTIP="TOOLTIP";
+Blockly.Msg.VAR_JOIN_HELPURL="";
+Blockly.Msg.VAR_CREATE_JOIN_ITEM_TITLE_ITEM="Variable";
+Blockly.Msg.VAR_CREATE_JOIN_ITEM_TOOLTIP='';
+Blockly.Msg.VAR_JOIN_TOOLTIP='';
+Blockly.Msg.VAR_JOIN_TITLE_CREATEWITH="Saisir :";
+
 //
 Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE;
 Blockly.Msg.CONTROLS_IF_IF_TITLE_IF = Blockly.Msg.CONTROLS_IF_MSG_IF;
