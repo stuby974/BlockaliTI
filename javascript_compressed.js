@@ -65,9 +65,21 @@ Blockly.JavaScript.controls_forEach=function(a){var b=Blockly.JavaScript.variabl
 // Copyright 2012 Google Inc.  Apache License 2.0
 Blockly.JavaScript.math={};Blockly.JavaScript.math_number=function(a){return[parseFloat(a.getFieldValue("NUM")),Blockly.JavaScript.ORDER_ATOMIC]};
 Blockly.JavaScript.math_arithmetic=function(a){var b={ADD:[" + ",Blockly.JavaScript.ORDER_ADDITION],MINUS:[" - ",Blockly.JavaScript.ORDER_SUBTRACTION],MULTIPLY:[" * ",Blockly.JavaScript.ORDER_MULTIPLICATION],DIVIDE:[" / ",Blockly.JavaScript.ORDER_DIVISION],POWER:[null,Blockly.JavaScript.ORDER_COMMA]}[a.getFieldValue("OP")],c=b[0],b=b[1],d=Blockly.JavaScript.valueToCode(a,"A",b)||"0";a=Blockly.JavaScript.valueToCode(a,"B",b)||"0";return c?[d+c+a,b]:["Math.pow("+d+", "+a+")",Blockly.JavaScript.ORDER_FUNCTION_CALL]};
-Blockly.JavaScript.math_single=function(a){var b=a.getFieldValue("OP"),c;if("NEG"==b)return a=Blockly.JavaScript.valueToCode(a,"NUM",Blockly.JavaScript.ORDER_UNARY_NEGATION)||"0","-"==a[0]&&(a=" "+a),["-"+a,Blockly.JavaScript.ORDER_UNARY_NEGATION];a="SIN"==b||"COS"==b||"TAN"==b?Blockly.JavaScript.valueToCode(a,"NUM",Blockly.JavaScript.ORDER_DIVISION)||"0":Blockly.JavaScript.valueToCode(a,"NUM",Blockly.JavaScript.ORDER_NONE)||"0";switch(b){case "ABS":c="Math.abs("+a+")";break;case "ROOT":c="Math.sqrt("+
-a+")";break;case "LN":c="Math.log("+a+")";break;case "EXP":c="Math.exp("+a+")";break;case "POW10":c="Math.pow(10,"+a+")";break;case "ROUND":c="Math.round("+a+")";break;case "ROUNDUP":c="Math.ceil("+a+")";break;case "ROUNDDOWN":c="Math.floor("+a+")";break;case "SIN":c="Math.sin("+a+" / 180 * Math.PI)";break;case "COS":c="Math.cos("+a+" / 180 * Math.PI)";break;case "TAN":c="Math.tan("+a+" / 180 * Math.PI)"}if(c)return[c,Blockly.JavaScript.ORDER_FUNCTION_CALL];switch(b){case "LOG10":c="Math.log("+a+
-") / Math.log(10)";break;case "ASIN":c="Math.asin("+a+") / Math.PI * 180";break;case "ACOS":c="Math.acos("+a+") / Math.PI * 180";break;case "ATAN":c="Math.atan("+a+") / Math.PI * 180";break;default:throw"Unknown math operator: "+b;}return[c,Blockly.JavaScript.ORDER_DIVISION]};
+Blockly.JavaScript.math_single=function(a){var b=a.getFieldValue("OP"),c;
+if("NEG"==b)return a=Blockly.JavaScript.valueToCode(a,"NUM",Blockly.JavaScript.ORDER_UNARY_NEGATION)||"0","-"==a[0]&&(a=" "+a),["-"+a,Blockly.JavaScript.ORDER_UNARY_NEGATION];a="SIN"==b||"COS"==b||"TAN"==b?Blockly.JavaScript.valueToCode(a,"NUM",Blockly.JavaScript.ORDER_DIVISION)||"0":Blockly.JavaScript.valueToCode(a,"NUM",Blockly.JavaScript.ORDER_NONE)||"0";switch(b){case "ABS":c="Math.abs("+a+")";break;case "ROOT":c="Math.sqrt("+
+a+")";break;
+case "LN":c="Math.log("+a+")";break;
+case "EXP":c="Math.exp("+a+")";break;
+case "POW10":c="Math.pow(10,"+a+")";break;
+case "PARTENT":c="Math.floor("+a+")";break;
+case "ROUND":c="Math.round("+a+")";break;
+case "ROUNDUP":c="Math.ceil("+a+")";break;
+case "ROUNDDOWN":c="Math.floor("+a+")";break;
+case "SIN":c="Math.sin("+a+" / 180 * Math.PI)";break;
+case "COS":c="Math.cos("+a+" / 180 * Math.PI)";break;
+case "TAN":c="Math.tan("+a+" / 180 * Math.PI)"}if(c)return[c,Blockly.JavaScript.ORDER_FUNCTION_CALL];switch(b){case "LOG10":c="Math.log("+a+
+") / Math.log(10)";break;
+case "ASIN":c="Math.asin("+a+") / Math.PI * 180";break;case "ACOS":c="Math.acos("+a+") / Math.PI * 180";break;case "ATAN":c="Math.atan("+a+") / Math.PI * 180";break;default:throw"Unknown math operator: "+b;}return[c,Blockly.JavaScript.ORDER_DIVISION]};
 Blockly.JavaScript.math_constant=function(a){return{PI:["Math.PI",Blockly.JavaScript.ORDER_MEMBER],E:["Math.E",Blockly.JavaScript.ORDER_MEMBER],GOLDEN_RATIO:["(1 + Math.sqrt(5)) / 2",Blockly.JavaScript.ORDER_DIVISION],SQRT2:["Math.SQRT2",Blockly.JavaScript.ORDER_MEMBER],SQRT1_2:["Math.SQRT1_2",Blockly.JavaScript.ORDER_MEMBER],INFINITY:["Infinity",Blockly.JavaScript.ORDER_ATOMIC]}[a.getFieldValue("CONSTANT")]};
 Blockly.JavaScript.math_number_property=function(a){var b=Blockly.JavaScript.valueToCode(a,"NUMBER_TO_CHECK",Blockly.JavaScript.ORDER_MODULUS)||"0",c=a.getFieldValue("PROPERTY"),d;if("PRIME"==c)return d=Blockly.JavaScript.provideFunction_("math_isPrime",["function "+Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_+"(n) {","  // https://en.wikipedia.org/wiki/Primality_test#Naive_methods","  if (n == 2 || n == 3) {","    return true;","  }","  // False if n is NaN, negative, is 1, or not whole.","  // And false if n is divisible by 2 or 3.",
 "  if (isNaN(n) || n <= 1 || n % 1 != 0 || n % 2 == 0 || n % 3 == 0) {","    return false;","  }","  // Check all the numbers of form 6k +/- 1, up to sqrt(n).","  for (var x = 6; x <= Math.sqrt(n) + 1; x += 6) {","    if (n % (x - 1) == 0 || n % (x + 1) == 0) {","      return false;","    }","  }","  return true;","}"])+"("+b+")",[d,Blockly.JavaScript.ORDER_FUNCTION_CALL];switch(c){case "EVEN":d=b+" % 2 == 0";break;case "ODD":d=b+" % 2 == 1";break;case "WHOLE":d=b+" % 1 == 0";break;case "POSITIVE":d=
@@ -147,13 +159,6 @@ Blockly.JavaScript.affiche_texte=function(a){
 
 
 
-Blockly.JavaScript.variables_saisir_multiple=function(a){
-	var var_name=Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE);
-	var code = '' + var_name + ' = parseFloat(window.prompt("' + var_name + '=?"));\n';
-	var code = code + Blockly.JavaScript.affiche_texte(Blockly.JavaScript.quote_(var_name+"=?")) + 'document.getElementById("interfaceHM").value += "" + ' + var_name + ";\n";
-	return code;
-};
-
 Blockly.JavaScript.variables_join=function(a){
 	var code='';
 	var var_name;
@@ -181,3 +186,8 @@ Blockly.JavaScript['affiche_fenetre'] = function(block) {
   return code;
 };
 
+Blockly.JavaScript.timer_get=function(a){
+	return[Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE),Blockly.JavaScript.ORDER_ATOMIC]};
+
+Blockly.JavaScript.timer_set=function(a){var b=Blockly.JavaScript.valueToCode(a,"VALUE",Blockly.JavaScript.ORDER_ASSIGNMENT)||"0";
+return Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE)+" = "+b+";\n"};

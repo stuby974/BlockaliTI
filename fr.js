@@ -242,6 +242,7 @@ Blockly.Msg.MATH_SINGLE_TOOLTIP_LN = "Renvoie le logarithme naturel d’un nombr
 Blockly.Msg.MATH_SINGLE_TOOLTIP_LOG10 = "Renvoie le logarithme base 10 d’un nombre.";
 Blockly.Msg.MATH_SINGLE_TOOLTIP_NEG = "Renvoie l’opposé d’un nombre";
 Blockly.Msg.MATH_SINGLE_TOOLTIP_POW10 = "Renvoie 10 à la puissance d’un nombre.";
+Blockly.Msg.MATH_SINGLE_TOOLTIP_PARTENT = "Renvoie la partie entière d’un nombre.";
 Blockly.Msg.MATH_SINGLE_TOOLTIP_ROOT = "Renvoie la racine carrée d’un nombre.";
 Blockly.Msg.MATH_SUBTRACTION_SYMBOL = "-";  // untranslated
 Blockly.Msg.MATH_TRIG_ACOS = "acos";  // untranslated
@@ -372,6 +373,8 @@ Blockly.Msg.VAR_CREATE_JOIN_ITEM_TITLE_ITEM="Variable";
 Blockly.Msg.VAR_CREATE_JOIN_ITEM_TOOLTIP='';
 Blockly.Msg.VAR_JOIN_TOOLTIP='';
 Blockly.Msg.VAR_JOIN_TITLE_CREATEWITH="Saisir :";
+Blockly.Msg.TIMER_DEFAULT_NAME = "Timer";
+Blockly.Msg.TIMER_START = "Démarrer Timer %1 limité à %2";
 
 //
 Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE;
